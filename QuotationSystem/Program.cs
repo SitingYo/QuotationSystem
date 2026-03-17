@@ -8,18 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. 註冊你的 Service (DI 注入)
+// 2. 註冊 Service (DI 注入)
 builder.Services.AddScoped<IQuotationService, QuotationService>();
 
-builder.Services.AddControllers();
+// 3. 註冊 MVC 與 API 控制器
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
+
+// 4. Swagger 設定
 builder.Services.AddSwaggerGen(c =>
 {
-    // 取得 API XML 檔案路徑
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
-    // 載入檔案
     if (File.Exists(xmlPath))
     {
         c.IncludeXmlComments(xmlPath);
@@ -35,6 +35,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
-app.MapControllers();
+// 5. 支援 wwwroot 裡的靜態檔案 (CSS, JS, 圖片)
+app.UseStaticFiles();
+
+// 6. 設定 MVC 預設路由
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=QuotationView}/{action=Index}/{id?}");
+
+app.MapControllers(); // 保留原本的 API 路由支援
+
 app.Run();

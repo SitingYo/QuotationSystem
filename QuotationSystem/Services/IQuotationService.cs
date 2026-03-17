@@ -6,5 +6,7 @@ namespace QuotationSystem.Services
     {
         Task CreateQuotationAsync(QuotationHeader quotation);
         Task UpdateQuotationAsync(QuotationHeader quotation);
+        Task<List<QuotationHeader>> GetAllQuotationsAsync();
+
     }
 }

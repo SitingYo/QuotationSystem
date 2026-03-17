@@ -97,5 +97,13 @@ namespace QuotationSystem.Services
 
             await _db.SaveChangesAsync();
         }
+
+        public async Task<List<QuotationHeader>> GetAllQuotationsAsync()
+        {
+            return await _db.QuotationHeaders
+                .Include(q => q.Details)
+                .OrderByDescending(q => q.QuotationDate)
+                .ToListAsync();
+        }
     }
 }

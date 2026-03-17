@@ -1,0 +1,31 @@
+﻿@model IEnumerable<QuotationSystem.Models.QuotationHeader>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>報價單列表</h2>
+            <a href="/swagger" class="btn btn-outline-info" target="_blank">API 文檔 (Swagger)</a>
+        </div>
+
+        <table class="table table-striped table-bordered shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>報價單號</th>
+                    <th>客戶名稱</th>
+                    <th>專案名稱</th>
+                    <th>含稅總額</th>
+                    <th>日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                <tr>
+                    <td><strong>@item.QuotationNumber</strong></td>
+                    <td>@item.ClientName</td>
+                    <td>@item.ProjectName</td>
+                    <td class="text-end text-primary">@item.TotalInclTax.ToString("C0")</td>
+                    <td>@item.QuotationDate.ToString("yyyy/MM/dd")</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>

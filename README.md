@@ -1,5 +1,5 @@
 ##### <u>QuotationSystem - 報價管理系統
-</u>這是一個基於 ASP.NET Core 8.0 Web API 開發的報價管理後端系統。本專案展示了如何處理複雜的主附表（Master-Detail）關聯、自動化商業編號生成，以及符合 RESTful 規範的 API 設計。
+</u>這是一個基於 ASP.NET Core 8.0 Web API 開發的報價管理後端系統。本專案展示如何處理複雜的主附表（Master-Detail）關聯、自動化編號生成，以及符合 RESTful 規範的 API 設計。
 
 ###### 使用技術
 - 系統架構：採用 Service Pattern 實現開發關注點分離（SoC），確保 Controller 簡潔且商業邏輯可重複使用。

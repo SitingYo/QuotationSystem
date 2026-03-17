@@ -1,0 +1,6 @@
+@QuotationSystem_HostAddress = http://localhost:5125
+
+GET {{QuotationSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

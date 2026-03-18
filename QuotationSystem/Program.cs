@@ -28,6 +28,23 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// 自動執行資料庫遷移
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        // 檢查本地是否有資料庫，若無則根據 Migrations 建立
+        context.Database.Migrate(); 
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "資料庫初始化失敗。");
+    }
+}
+
 // 啟用 Swagger 介面
 if (app.Environment.IsDevelopment())
 {
